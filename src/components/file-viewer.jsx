@@ -3,18 +3,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import 'styles/main.scss';
-import withFetching from './fetch-wrapper';
 
 import {
-  CsvViewer,
-  DocxViewer,
-  VideoViewer,
-  XlsxViewer,
-  XBimViewer,
   PDFViewer,
-  UnsupportedViewer,
-  PhotoViewerWrapper,
-  AudioViewer,
 } from './drivers';
 
 class FileViewer extends Component {
@@ -34,38 +25,8 @@ class FileViewer extends Component {
 
   getDriver() {
     switch (this.props.fileType) {
-      case 'csv': {
-        return withFetching(CsvViewer, this.props);
-      }
-      case 'xlsx': {
-        const newProps = Object.assign({}, this.props, { responseType: 'arraybuffer' });
-        return withFetching(XlsxViewer, newProps);
-      }
-      case 'jpg':
-      case 'jpeg':
-      case 'gif':
-      case 'bmp':
-      case 'png': {
-        return PhotoViewerWrapper;
-      }
       case 'pdf': {
         return PDFViewer;
-      }
-      case 'docx': {
-        return DocxViewer;
-      }
-      case 'mp3': {
-        return AudioViewer;
-      }
-      case 'webm':
-      case 'mp4': {
-        return VideoViewer;
-      }
-      case 'wexbim': {
-        return XBimViewer;
-      }
-      default: {
-        return UnsupportedViewer;
       }
     }
   }
